@@ -13,7 +13,7 @@
 class Endstop {
 public:
 	inline Endstop(uint8_t _pin) { pin = _pin; }
-	inline bool CheckEndstop() { return digitalReadFast(pin) ? true : false ; }
+	inline bool CheckEndstop() { return digitalReadFast(pin) ? true : false ; } //Binary operator to return if the switch is triggered
 
 private:
 	uint8_t pin;
@@ -22,8 +22,8 @@ private:
 class Endstops {
 public:
 	Endstops(uint8_t maxPin, uint8_t minPin);
-	inline bool CheckHome() { return minEndstop->CheckEndstop(); }
-	inline bool CheckStops() { return minEndstop->CheckEndstop() || maxEndstop->CheckEndstop(); }
+	inline bool CheckMin() { return minEndstop->CheckEndstop(); }
+	inline bool CheckMax() { return maxEndstop->CheckEndstop(); }
 
 private:
 	Endstop *maxEndstop;

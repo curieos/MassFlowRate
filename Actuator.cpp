@@ -7,16 +7,21 @@
 
 #include "Actuator.h"
 
-Actuator::Actuator(uint8_t stepPin, uint8_t dirPin) {
+Actuator::Actuator(uint8_t stepPin, uint8_t dirPin, uint8_t maxPin, uint8_t minPin) {
 	position = 0;
 
 	driver = new AMIS30543();
 	motor = new AccelStepper(AccelStepper::DRIVER, stepPin, dirPin);
+
+	motor->setMaxSpeed(SPEED * STEPS_PER_MM);
+	motor->setAcceleration(ACCEL * STEPS_PER_MM);
+
+	endstops = new Endstops(Y_MAX_PIN, Y_MIN_PIN);
 }
 
 void Actuator::Initialize(uint8_t chipSelect) {
 	driver->init(chipSelect);
-	delay(1);
+	delay(10);
 
 	driver->resetSettings();
 	driver->setCurrentMilliamps(MOTOR_CURRENT);

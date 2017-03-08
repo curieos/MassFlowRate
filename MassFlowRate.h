@@ -11,6 +11,10 @@
 class Actuator;
 class Platform;
 class Endstops;
+class PressureSensor;
+class ThermocoupleSensorSPI;
+class CommandBuffer;
+class Interpreter;
 
 #include "Arduino.h"
 #include <SPI.h>
@@ -20,5 +24,11 @@ class Endstops;
 #include "Actuator.h"
 #include "Platform.h"
 #include "Endstops.h"
+#include "Sensor.h"
+#include "PressureSensor.h"
+#include "ThermocoupleSensorSPI.h"
+#include "Sensors.h"
+#include "CommandBuffer.h"
+#include "Interpreter.h"
 
 #endif /* MASSFLOWRATE_H_ */

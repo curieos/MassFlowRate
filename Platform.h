@@ -13,17 +13,19 @@
 class Platform {
 public:
 	Platform();
-	void MoveTo(double x, double y);
-	void MoveToInch(double x, double y);
+	void MoveXInch(double pos);
+	void MoveYInch(double pos);
+	void MoveX(double pos);
+	void MoveY(double pos);
+	//void MoveTo(double x, double y);
+	//void MoveToInch(double x, double y);
 	void HomeAll();
 	void Update();
 	void PrintEndstopStatus();
 
 private:
 	Actuator *x;
-	Endstops *xEndstops;
-	//Actuator *y;
-	//Endstops *yEndstops;
+	Actuator *y;
 };
 
 #endif /* PLATFORM_H_ */
