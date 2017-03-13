@@ -2,7 +2,7 @@
  * Interpreter.h
  *
  *  Created on: Mar 3, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #ifndef INTERPRETER_H_

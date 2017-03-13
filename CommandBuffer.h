@@ -2,7 +2,7 @@
  * CommandBuffer.h
  *
  *  Created on: Mar 3, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #ifndef COMMANDBUFFER_H_

@@ -2,7 +2,7 @@
  * Sensor.cpp
  *
  *  Created on: Feb 16, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #include "Sensor.h"
@@ -15,13 +15,16 @@ Sensor::Sensor(float slope, float offset, uint8_t pin) {
 	this->pin = pin;
 	this->slope = slope;
 	this->offset = offset;
+	enabled = true;
 }
 
 void Sensor::Update() {
 	if (*sampleTimer >= SAMPLE_PERIOD) {
 		*sampleTimer -= SAMPLE_PERIOD;
 
-		AddData();
+		if (enabled) {
+			AddData();
+		}
 	}
 }
 
@@ -46,5 +49,9 @@ float Sensor::ReadData() {
 void Sensor::AddData() {
 	data[index] = ReadData();
 	index = (index+1)%SAMPLES;
+}
+
+void Sensor::Enable(bool en) {
+	enabled = en;
 }
 

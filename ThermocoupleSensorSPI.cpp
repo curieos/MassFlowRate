@@ -2,12 +2,13 @@
  * ThermocoupleSensorSPI.cpp
  *
  *  Created on: Feb 21, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #include "ThermocoupleSensorSPI.h"
 
-#define THERMSAMPLES 4
+#define THERMSAMPLES 8
+#define THERM_PERIOD 50
 
 ThermocoupleSensorSPI::ThermocoupleSensorSPI(uint8_t pin) : Sensor(0, 0, pin) {
 	sensor = new Adafruit_MAX31855(DEFAULT_CLK, pin, DEFAULT_MISO);
@@ -16,9 +17,12 @@ ThermocoupleSensorSPI::ThermocoupleSensorSPI(uint8_t pin) : Sensor(0, 0, pin) {
 }
 
 void ThermocoupleSensorSPI::Update() {
-	if (*sampleTimer >= 200) {
-		*sampleTimer -= 200;
-		this->AddData();
+	if (*sampleTimer >= THERM_PERIOD) {
+		*sampleTimer -= THERM_PERIOD;
+
+		if (enabled) {
+			this->AddData();
+		}
 	}
 }
 
@@ -39,4 +43,8 @@ float ThermocoupleSensorSPI::ReadData() {
 void ThermocoupleSensorSPI::AddData() {
 	data[index] = ReadData();
 	index = (index + 1) % THERMSAMPLES;
+}
+
+void ThermocoupleSensorSPI::Enable(bool en) {
+	Sensor::Enable(en);
 }

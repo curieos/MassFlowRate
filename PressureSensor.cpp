@@ -2,7 +2,7 @@
  * PressureSensor.cpp
  *
  *  Created on: Feb 21, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #include "PressureSensor.h"

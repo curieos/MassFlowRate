@@ -2,7 +2,7 @@
  * Endstops.cpp
  *
  *  Created on: Jan 26, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #include "Endstops.h"

@@ -2,7 +2,7 @@
  * Platform.cpp
  *
  *  Created on: Jan 26, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #include "Platform.h"
@@ -16,9 +16,9 @@ Platform::Platform() {
 }
 
 void Platform::MoveX(double pos) {
-	if (this->y->GetPosition() > -2) {
+	//f (this->y->GetPosition() > -2) {
 		this->x->MoveTo(pos);
-	}
+	//}
 }
 
 void Platform::MoveXInch(double pos) {
@@ -26,9 +26,9 @@ void Platform::MoveXInch(double pos) {
 }
 
 void Platform::MoveY(double pos) {
-	if (this->x->GetPosition() > -2) {
+	//if (this->x->GetPosition() > -2) {
 		this->y->MoveTo(pos);
-	}
+	//}
 }
 
 void Platform::MoveYInch(double pos) {

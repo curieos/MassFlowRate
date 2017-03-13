@@ -2,7 +2,7 @@
  * Interpreter.cpp
  *
  *  Created on: Mar 3, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #include "Interpreter.h"
@@ -17,11 +17,19 @@ void Interpreter::Update() {
 
 	if (!serialBuffer->IsEmpty()) {
 		if (serialBuffer->Seen('A')) {
-			if (serialBuffer->GetIntValue() == 1) {
+			switch (serialBuffer->GetIntValue()) {
+			case 1:
 				if (serialBuffer->Seen('S')) {
 					platform->MoveXInch(serialBuffer->GetFloatValue());
-					//Serial.println(serialBuffer->GetFloatValue());
+					Serial.println(serialBuffer->GetFloatValue());
 				}
+				break;
+			case 2:
+				if (serialBuffer->Seen('S')) {
+					platform->MoveYInch(serialBuffer->GetFloatValue());
+					Serial.println(serialBuffer->GetFloatValue());
+				}
+				break;
 			}
 		}
 		serialBuffer->CommandExecuted();

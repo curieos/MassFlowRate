@@ -2,7 +2,7 @@
  * Sensors.h
  *
  *  Created on: Feb 23, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #ifndef SENSORS_H_

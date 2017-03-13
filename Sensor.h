@@ -2,7 +2,7 @@
  * Sensor.h
  *
  *  Created on: Feb 16, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #ifndef SENSOR_H_
@@ -18,6 +18,7 @@ public:
 	virtual float AverageData();
 	virtual float ReadData();
 	virtual void AddData();
+	virtual void Enable(bool en);
 
 protected:
 	elapsedMillis *sampleTimer;
@@ -27,6 +28,7 @@ protected:
 	float *data;
 	float slope;
 	float offset;
+	bool enabled;
 };
 
 #endif /* SENSOR_H_ */

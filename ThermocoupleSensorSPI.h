@@ -2,7 +2,7 @@
  * ThermocoupleSensorSPI.h
  *
  *  Created on: Feb 21, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #ifndef THERMOCOUPLESENSORSPI_H_
@@ -19,6 +19,7 @@ public:
 	virtual float AverageData() override;
 	virtual float ReadData() override;
 	virtual void AddData() override;
+	virtual void Enable(bool en) override;
 
 private:
 	Adafruit_MAX31855 *sensor;

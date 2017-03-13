@@ -2,7 +2,7 @@
  * Endstops.h
  *
  *  Created on: Jan 26, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #ifndef ENDSTOPS_H_

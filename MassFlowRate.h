@@ -2,7 +2,7 @@
  * MassFlowRate.h
  *
  *  Created on: Jan 25, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #ifndef MASSFLOWRATE_H_

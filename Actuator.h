@@ -2,7 +2,7 @@
  * Actuator.h
  *
  *  Created on: Jan 25, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #ifndef ACTUATOR_H_

@@ -2,7 +2,7 @@
  * Actuator.cpp
  *
  *  Created on: Jan 25, 2017
- *      Author: cosmo
+ *      Author: Caroline
  */
 
 #include "Actuator.h"
