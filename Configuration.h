@@ -8,7 +8,7 @@
 #ifndef CONFIGURATION_H_
 #define CONFIGURATION_H_
 
-#define VERSION "0"
+#define VERSION "0.1"
 
 //Serial settings
 #define BAUDRATE 115200
@@ -25,6 +25,7 @@
 #define DRIVE_PITCH 8 //mm/rev
 #define STEPS_PER_MM MICROSTEPPING*MOTOR_STEPS_PER_REV/DRIVE_PITCH
 #define SPEED 20 //mm per sec
+#define HOME_SPEED 10 //mm per sec
 #define ACCEL 100 //mm per sec^2
 
 //Machine limits
@@ -80,9 +81,9 @@
  * bytes 32-35: Differential 2 slope
  * bytes 36-39: Differential 2 offset
  */
-#define X_MIN_REG 0
+#define X_MID_REG 0
 #define X_MAX_REG 4
-#define Y_MIN_REG 8
+#define Y_MID_REG 8
 #define Y_MAX_REG 12
 #define ABS_SLOPE_REG 16
 #define ABS_OFFSET_REG 20
@@ -92,8 +93,8 @@
 #define DIFF_2_OFFSET_REG 36
 
 //Starter values for config
-#define ACTUATOR_MAX_DEFAULT 2.9
-#define ACTUATOR_MIN_DEFAULT -2.9
+#define ACTUATOR_MAX_DEFAULT 119888
+#define ACTUATOR_MID_DEFAULT 60960
 #define ABS_SLOPE_DEFAULT 0.00697
 #define ABS_OFFSET_DEFAULT 1.052
 #define DIFF_SLOPE_DEFAULT 0.06077

@@ -8,7 +8,8 @@
 #ifndef PLATFORM_H_
 #define PLATFORM_H_
 
-#include "MassFlowRate.h"
+#include "Actuator.h"
+#include "Configuration.h"
 
 class Platform {
 public:
@@ -23,9 +24,15 @@ public:
 	void Update();
 	void PrintEndstopStatus();
 
+	//inline bool Moving() { return x->Moving() || y->Moving(); }
+	inline MoveState GetState() { return state; }
+
 private:
+	MoveState state;
 	Actuator *x;
 	Actuator *y;
+
+	bool homed;
 };
 
 #endif /* PLATFORM_H_ */

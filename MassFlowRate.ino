@@ -1,3 +1,15 @@
+/**
+ * todo
+ * - Implement actuator "calibration"
+ * 	- Automatic max position calculation
+ * 	- Command to set mid position
+ * 	- Command to write calibration values
+ * - Implement sensor calibration
+ *  - Command to set slope and offset
+ *  - Command to write values
+ * - Disable all sensors while actuators are moving
+ */
+
 #include "MassFlowRate.h"
 #include "EEPROMRW.h"
 
@@ -18,13 +30,13 @@ void setup() {
 
 	platform = new Platform();
 	sensors = new Sensors();
-	interpreter = new Interpreter(platform);
+	interpreter = new Interpreter(platform, sensors);
 
 	if (FRESH_FLASH) {
-		EEPROMRW::SetFloatValue(X_MIN_REG, ACTUATOR_MIN_DEFAULT);
-		EEPROMRW::SetFloatValue(X_MAX_REG, ACTUATOR_MAX_DEFAULT);
-		EEPROMRW::SetFloatValue(Y_MIN_REG, ACTUATOR_MIN_DEFAULT);
-		EEPROMRW::SetFloatValue(Y_MAX_REG, ACTUATOR_MAX_DEFAULT);
+		EEPROMRW::SetIntValue(X_MID_REG, ACTUATOR_MID_DEFAULT);
+		EEPROMRW::SetIntValue(X_MAX_REG, ACTUATOR_MAX_DEFAULT);
+		EEPROMRW::SetIntValue(Y_MID_REG, ACTUATOR_MID_DEFAULT);
+		EEPROMRW::SetIntValue(Y_MAX_REG, ACTUATOR_MAX_DEFAULT);
 		EEPROMRW::SetFloatValue(ABS_SLOPE_REG, ABS_SLOPE_DEFAULT);
 		EEPROMRW::SetFloatValue(ABS_OFFSET_REG, ABS_OFFSET_DEFAULT);
 		EEPROMRW::SetFloatValue(DIFF_1_SLOPE_REG, DIFF_SLOPE_DEFAULT);

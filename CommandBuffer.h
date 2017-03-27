@@ -9,7 +9,8 @@
 #define COMMANDBUFFER_H_
 
 #include <stdlib.h>
-#include "MassFlowRate.h"
+#include "Arduino.h"
+#include "Configuration.h"
 
 class CommandBuffer {
 public:

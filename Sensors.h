@@ -9,7 +9,9 @@
 #define SENSORS_H_
 
 #include "EEPROMRW.h"
-#include "MassFlowRate.h"
+#include "PressureSensor.h"
+#include "ThermocoupleSensorSPI.h"
+#include "Configuration.h"
 
 class Sensors {
 public:

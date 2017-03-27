@@ -7,8 +7,9 @@
 
 #include "Actuator.h"
 
-Actuator::Actuator(uint8_t stepPin, uint8_t dirPin, uint8_t maxPin, uint8_t minPin) {
-	position = 0;
+Actuator::Actuator(uint8_t stepPin, uint8_t dirPin, int midReg, int maxReg) {
+	maxPosition = EEPROMRW::GetIntValue(maxReg);
+	midPosition = EEPROMRW::GetIntValue(midReg);
 
 	driver = new AMIS30543();
 	motor = new AccelStepper(AccelStepper::DRIVER, stepPin, dirPin);
@@ -16,7 +17,9 @@ Actuator::Actuator(uint8_t stepPin, uint8_t dirPin, uint8_t maxPin, uint8_t minP
 	motor->setMaxSpeed(SPEED * STEPS_PER_MM);
 	motor->setAcceleration(ACCEL * STEPS_PER_MM);
 
-	endstops = new Endstops(Y_MAX_PIN, Y_MIN_PIN);
+	endstops = new Endstops(X_MAX_PIN, X_MIN_PIN);
+
+	state = Ready;
 }
 
 void Actuator::Initialize(uint8_t chipSelect) {
@@ -33,22 +36,48 @@ void Actuator::Initialize(uint8_t chipSelect) {
 }
 
 void Actuator::MoveTo(double pos) {
-	position = (int)pos*STEPS_PER_MM;
+	int position = (int) pos * STEPS_PER_MM;
+	position += midPosition;
 
-	/*if (this->position < 0) todo  THIS IS FOR 0-MAX, NEED TO CHANGE TO MIN TO MAX AS DEFINED BY EEPROM
-		this->position = 0;
-	else if (this->position > AXIS_MAX_LENGTH * STEPS_PER_MM)
-		this->position = AXIS_MAX_LENGTH * STEPS_PER_MM;*/
+	motor->setMaxSpeed(SPEED * STEPS_PER_MM);
+
+	if (position < 0)
+		position = 0;
+	else if (position > maxPosition)
+		position = maxPosition;
+
 	Serial.println("MOVING");
-	motor->moveTo(this->position);
+	motor->moveTo(position);
 }
 
 bool Actuator::Run() {
+	switch (state) {
+	case MoveState::Homing:
+		if (endstops->CheckMin()) {
+			SetPosition(0);
+			state = Ready;
+		}
+		if (endstops->CheckMax()) {
+			SetPosition(0);
+			//TODO CAUSE AN ERROR THIS SHOULDNT HAPPEN
+		}
+		break;
+	case MoveState::Moving:
+	case MoveState::Calibrating:
+	case MoveState::Ready:
+		break;
+	}
+
 	return motor->run();
 }
 
 void Actuator::SetPosition(int pos) {
-	position = pos;
-	motor->setCurrentPosition(position);
+	motor->setCurrentPosition(pos);
+}
+
+void Actuator::Home() {
+	motor->setMaxSpeed(HOME_SPEED * STEPS_PER_MM);
+	motor->moveTo(-maxPosition * 2);
+	state = Homing;
 }
 

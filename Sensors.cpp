@@ -20,12 +20,12 @@ void Sensors::Update () {
 	sensorB->Update();
 	//sensorC->Update();
 
-	if (*timer >= 1000) {
-		*timer -= 1000;
+	if (*timer >= 250) {
+		*timer -= 250;
 
-		Serial.print("\nAbsolute Pressure: ");
+		Serial.print("A1S");
 		Serial.println(sensorA->AverageData(), SERIAL_FP_DIGITS);
-		Serial.print("Differential Pressure: ");
+		Serial.print("D1S");
 		Serial.println(sensorB->AverageData(), SERIAL_FP_DIGITS);
 		//Serial.print("Temperature: ");
 		//Serial.println(sensorC->AverageData());

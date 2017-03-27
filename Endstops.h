@@ -8,7 +8,7 @@
 #ifndef ENDSTOPS_H_
 #define ENDSTOPS_H_
 
-#include "MassFlowRate.h"
+#include "Arduino.h"
 
 class Endstop {
 public:
