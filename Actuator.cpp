@@ -7,9 +7,11 @@
 
 #include "Actuator.h"
 
-Actuator::Actuator(uint8_t stepPin, uint8_t dirPin, int midReg, int maxReg) {
+Actuator::Actuator(uint8_t stepPin, uint8_t dirPin, uint8_t minPin, uint8_t maxPin, int midReg, int maxReg) {
 	maxPosition = EEPROMRW::GetIntValue(maxReg);
 	midPosition = EEPROMRW::GetIntValue(midReg);
+	midRegister = midReg;
+	maxRegister = maxReg;
 
 	driver = new AMIS30543();
 	motor = new AccelStepper(AccelStepper::DRIVER, stepPin, dirPin);
@@ -17,7 +19,7 @@ Actuator::Actuator(uint8_t stepPin, uint8_t dirPin, int midReg, int maxReg) {
 	motor->setMaxSpeed(SPEED * STEPS_PER_MM);
 	motor->setAcceleration(ACCEL * STEPS_PER_MM);
 
-	endstops = new Endstops(X_MAX_PIN, X_MIN_PIN);
+	endstops = new Endstops(maxPin, minPin);
 
 	state = Ready;
 }
@@ -35,6 +37,15 @@ void Actuator::Initialize(uint8_t chipSelect) {
 	motor->setAcceleration(ACCEL * STEPS_PER_MM);
 }
 
+void Actuator::WriteConfig() {
+
+}
+
+void Actuator::ReadConfig() {
+	maxPosition = EEPROMRW::GetIntValue(maxRegister);
+	midPosition = EEPROMRW::GetIntValue(midRegister);
+}
+
 void Actuator::MoveTo(double pos) {
 	int position = (int) pos * STEPS_PER_MM;
 	position += midPosition;
@@ -48,6 +59,7 @@ void Actuator::MoveTo(double pos) {
 
 	Serial.println("MOVING");
 	motor->moveTo(position);
+	state = MoveState::Moving;
 }
 
 bool Actuator::Run() {
@@ -56,13 +68,17 @@ bool Actuator::Run() {
 		if (endstops->CheckMin()) {
 			SetPosition(0);
 			state = Ready;
-		}
-		if (endstops->CheckMax()) {
+			MoveTo(-2.9 * INCH_TO_MM);
+		} else if (endstops->CheckMax()) {
 			SetPosition(0);
 			//TODO CAUSE AN ERROR THIS SHOULDNT HAPPEN
 		}
 		break;
 	case MoveState::Moving:
+		if (motor->distanceToGo() == 0) {
+			state = Ready;
+		}
+		break;
 	case MoveState::Calibrating:
 	case MoveState::Ready:
 		break;

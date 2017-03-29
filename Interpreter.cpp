@@ -14,22 +14,35 @@ Interpreter::Interpreter(Platform *p, Sensors *s) {
 }
 
 void Interpreter::Update() {
+	if (!sensors->Enabled()) {
+		if (platform->GetState() == Ready) sensors->Enable();
+	}
+
 	serialBuffer->FillBuffer();
 
 	if (!serialBuffer->IsEmpty()) {
 		if (serialBuffer->Seen('A')) {
+			sensors->Disable();
 			ActuatorCommands();
-		} else if (serialBuffer->Seen(' ')) {
-
+		} else if (serialBuffer->Seen('S')) {
+			SensorCommands();
 		}
 		serialBuffer->CommandExecuted();
 	}
 }
 
+void Interpreter::SensorCommands() {
+
+}
+
 void Interpreter::ActuatorCommands() {
-	if (serialBuffer->Seen('H')) {
+	if (serialBuffer->Seen('H')) { //Home all
 		platform->HomeAll();
-	} else {
+	} else if (serialBuffer->Seen('W')) { //Write calibration to EEPROM
+
+	} else if (serialBuffer->Seen('R')) { //Read calibration from EEPROM
+
+	} else if (serialBuffer->Seen('A')) {
 		switch (serialBuffer->GetIntValue()) {
 		case 1:
 			if (serialBuffer->Seen('S')) {

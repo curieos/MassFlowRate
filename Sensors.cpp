@@ -13,17 +13,23 @@ Sensors::Sensors() {
 	//sensorC = new ThermocoupleSensorSPI(THERMOCOUPLE_CS_PIN);
 
 	timer = new elapsedMillis();
+
+	Enable();
 }
 
 void Sensors::Update () {
-	sensorA->Update();
-	sensorB->Update();
+	if (enabled) {
+		sensorA->Update();
+		sensorB->Update();
+	}
 	//sensorC->Update();
 
 	if (*timer >= 250) {
 		*timer -= 250;
 
-		Serial.print("A1S");
+		if (!enabled) return;
+
+		Serial.print("P1S");
 		Serial.println(sensorA->AverageData(), SERIAL_FP_DIGITS);
 		Serial.print("D1S");
 		Serial.println(sensorB->AverageData(), SERIAL_FP_DIGITS);

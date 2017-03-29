@@ -23,11 +23,15 @@ public:
 	void HomeAll();
 	void Update();
 	void PrintEndstopStatus();
+	void PrintPositions();
+	void WriteConfig();
+	void ReadConfig();
 
 	//inline bool Moving() { return x->Moving() || y->Moving(); }
 	inline MoveState GetState() { return state; }
 
 private:
+	elapsedMillis timer;
 	MoveState state;
 	Actuator *x;
 	Actuator *y;

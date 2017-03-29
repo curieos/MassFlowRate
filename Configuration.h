@@ -17,13 +17,13 @@
 #define MAX_COMMAND_LENGTH 100
 #define SERIAL_FP_DIGITS 4
 #define SERIAL_UPDATE_FREQUENCY 4
-#define SERIAL_UPDATE_PERIOD 100/SERIAL_UPDATE_FREQUENCY
+#define SERIAL_UPDATE_PERIOD (100/SERIAL_UPDATE_FREQUENCY)
 
 //Stepper settings
 #define MICROSTEPPING 32
 #define MOTOR_STEPS_PER_REV 200
 #define DRIVE_PITCH 8 //mm/rev
-#define STEPS_PER_MM MICROSTEPPING*MOTOR_STEPS_PER_REV/DRIVE_PITCH
+#define STEPS_PER_MM (MICROSTEPPING*MOTOR_STEPS_PER_REV/DRIVE_PITCH)
 #define SPEED 20 //mm per sec
 #define HOME_SPEED 10 //mm per sec
 #define ACCEL 100 //mm per sec^2
@@ -48,14 +48,14 @@
 #define MOTOR_CURRENT 1200
 
 //Conversions
-#define INCH_TO_MM 25.4
-#define MM_TO_INCH 1/25.4
+#define INCH_TO_MM 25.4f
+#define MM_TO_INCH (1.f/25.4f)
 
 //General Sensor settings
 #define ADC_RESOLUTION 12
 #define SAMPLES 10
 #define SAMPLE_RATE 25 //hertz
-#define SAMPLE_PERIOD 100/SAMPLE_RATE
+#define SAMPLE_PERIOD (100/SAMPLE_RATE)
 
 //Absolute Pressure
 #define ABSOLUTE_PIN 0

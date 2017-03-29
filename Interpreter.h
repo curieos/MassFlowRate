@@ -17,6 +17,7 @@ public:
 	Interpreter(Platform *p, Sensors *s);
 	void Update();
 	void ActuatorCommands();
+	void SensorCommands();
 
 private:
 	CommandBuffer *serialBuffer;

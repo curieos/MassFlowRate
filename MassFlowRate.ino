@@ -7,7 +7,7 @@
  * - Implement sensor calibration
  *  - Command to set slope and offset
  *  - Command to write values
- * - Disable all sensors while actuators are moving
+ * x Disable all sensors while actuators are moving
  */
 
 #include "MassFlowRate.h"
@@ -48,7 +48,7 @@ void setup() {
 
 // The loop function is called in an endless loop
 void loop() {
-	platform->Update();
-	sensors->Update();
 	interpreter->Update();
+	sensors->Update();
+	platform->Update();
 }
