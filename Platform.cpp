@@ -49,11 +49,13 @@ void Platform::HomeAll() {
 }
 
 void Platform::WriteConfig() {
-
+	x->WriteConfig();
+	y->WriteConfig();
 }
 
 void Platform::ReadConfig() {
-
+	x->ReadConfig();
+	y->ReadConfig();
 }
 
 void Platform::PrintPositions() {

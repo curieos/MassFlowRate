@@ -13,18 +13,38 @@
 #include "ThermocoupleSensorSPI.h"
 #include "Configuration.h"
 
+const uint8_t NUMSENSORS = 3;
+
+/**
+ *
+ */
 class Sensors {
 public:
 	Sensors();
+	/**
+	 *
+	 */
 	void Update();
+	/**
+	 *
+	 */
+	void Enable();
+	/**
+	 *
+	 */
+	void Disable();
+
+
+	/**
+	 *
+	 * @return
+	 */
 	inline bool Enabled() { return enabled; }
-	inline void Enable() { enabled = true; }
-	inline void Disable() { enabled = false; }
 
 private:
-	Sensor *sensorA;
-	Sensor *sensorB;
-	//Sensor *sensorC;
+	Sensor *sensors[NUMSENSORS];
+	//Sensor *sensorA;
+	//Sensor *sensorB;
 	elapsedMillis *timer;
 
 	bool enabled;

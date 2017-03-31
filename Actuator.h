@@ -40,10 +40,11 @@ public:
 	inline float GetSetPositionMM() { return (float) GetSetPositionSteps() / STEPS_PER_MM; }
 	inline float GetSetPositionInch() { return GetSetPositionMM() / INCH_TO_MM; }
 	inline bool Moving() { return !motor->distanceToGo() == 0; }
-	inline long GetMaxPosition() { return maxPosition; }
-	inline long GetMidPosition() { return midPosition; }
-	inline void SetMaxPosition(int val) { maxPosition = val; }
-	inline void SetMidPosition(int val) { midPosition = val; }
+	inline void SetMidPosition() { midPosition = motor->currentPosition(); }
+	//inline long GetMaxPosition() { return maxPosition; }
+	//inline long GetMidPosition() { return midPosition; }
+	//inline void SetMaxPosition(int val) { maxPosition = val; }
+	//inline void SetMidPosition(int val) { midPosition = val; }
 	inline MoveState GetState() { return state; }
 
 private:

@@ -38,7 +38,8 @@ void Actuator::Initialize(uint8_t chipSelect) {
 }
 
 void Actuator::WriteConfig() {
-
+	EEPROMRW::SetIntValue(maxRegister, maxPosition);
+	EEPROMRW::SetIntValue(midRegister, midPosition);
 }
 
 void Actuator::ReadConfig() {
@@ -75,7 +76,7 @@ bool Actuator::Run() {
 		}
 		break;
 	case MoveState::Moving:
-		if (motor->distanceToGo() == 0) {
+		if (!Moving()) {
 			state = Ready;
 		}
 		break;

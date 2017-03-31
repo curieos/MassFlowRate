@@ -11,13 +11,45 @@
 #include "Arduino.h"
 #include "Configuration.h"
 
+/**
+ *
+ */
 class Sensor {
 public:
+	/**
+	 *
+	 * @param slope
+	 * @param offset
+	 * @param pin
+	 */
 	Sensor(float slope, float offset, uint8_t pin);
+
+	/**
+	 *
+	 */
 	virtual void Update();
+
+	/**
+	 *
+	 * @return
+	 */
 	virtual float AverageData();
+
+	/**
+	 *
+	 * @return
+	 */
 	virtual float ReadData();
+
+	/**
+	 *
+	 */
 	virtual void AddData();
+
+	/**
+	 *
+	 * @param en
+	 */
 	virtual void Enable(bool en);
 
 protected:
