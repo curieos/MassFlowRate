@@ -7,8 +7,8 @@
 
 #include "ThermocoupleSensorSPI.h"
 
-#define THERMSAMPLES 8
-#define THERM_PERIOD 50
+#define THERMSAMPLES 6
+#define THERM_PERIOD 70
 
 ThermocoupleSensorSPI::ThermocoupleSensorSPI(uint8_t pin) : Sensor(0, 0, pin) {
 	sensor = new Adafruit_MAX31855(DEFAULT_CLK, pin, DEFAULT_MISO);

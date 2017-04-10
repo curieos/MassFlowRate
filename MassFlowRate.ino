@@ -2,8 +2,8 @@
  * todo
  * - Implement actuator "calibration"
  * 	- Automatic max position calculation
- * 	- Command to set mid position
- * 	- Command to write calibration values
+ * 	x Command to set mid position
+ * 	x Command to write calibration values
  * - Implement sensor calibration
  *  - Command to set slope and offset
  *  - Command to write values

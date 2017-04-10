@@ -7,7 +7,8 @@
 
 #include "Actuator.h"
 
-Actuator::Actuator(uint8_t stepPin, uint8_t dirPin, uint8_t minPin, uint8_t maxPin, int midReg, int maxReg) {
+Actuator::Actuator(uint8_t stepPin, uint8_t dirPin, uint8_t minPin,
+		uint8_t maxPin, int midReg, int maxReg) {
 	maxPosition = EEPROMRW::GetIntValue(maxReg);
 	midPosition = EEPROMRW::GetIntValue(midReg);
 	midRegister = midReg;
@@ -48,7 +49,7 @@ void Actuator::ReadConfig() {
 }
 
 void Actuator::MoveTo(double pos) {
-	int position = (int) pos * STEPS_PER_MM;
+	int position = pos * STEPS_PER_MM;
 	position += midPosition;
 
 	motor->setMaxSpeed(SPEED * STEPS_PER_MM);
@@ -58,7 +59,6 @@ void Actuator::MoveTo(double pos) {
 	else if (position > maxPosition)
 		position = maxPosition;
 
-	Serial.println("MOVING");
 	motor->moveTo(position);
 	state = MoveState::Moving;
 }
@@ -69,7 +69,7 @@ bool Actuator::Run() {
 		if (endstops->CheckMin()) {
 			SetPosition(0);
 			state = Ready;
-			MoveTo(-2.9 * INCH_TO_MM);
+			MoveTo(-2.7 * INCH_TO_MM);
 		} else if (endstops->CheckMax()) {
 			SetPosition(0);
 			//TODO CAUSE AN ERROR THIS SHOULDNT HAPPEN
@@ -79,8 +79,24 @@ bool Actuator::Run() {
 		if (!Moving()) {
 			state = Ready;
 		}
+
+		if (endstops->CheckMin()) {
+
+		} else if (endstops->CheckMax()) {
+			maxPosition = motor->currentPosition();
+			SetPosition(maxPosition);
+		}
 		break;
 	case MoveState::Calibrating:
+		if (endstops->CheckMin()) {
+			//TODO CAUSE ERROR
+		} else if (endstops->CheckMax()) {
+			maxPosition = motor->currentPosition();
+			SetPosition(maxPosition);
+			state = Ready;
+			MoveTo(2.7 * INCH_TO_MM);
+		}
+		break;
 	case MoveState::Ready:
 		break;
 	}

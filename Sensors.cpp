@@ -8,13 +8,10 @@
 #include "Sensors.h"
 
 Sensors::Sensors() {
-	sensors[0] = new PressureSensor(EEPROMRW::GetFloatValue(ABS_SLOPE_REG),
-			EEPROMRW::GetFloatValue(ABS_OFFSET_REG), ABSOLUTE_PIN);
-	sensors[1] = new PressureSensor(EEPROMRW::GetFloatValue(DIFF_1_SLOPE_REG),
-			EEPROMRW::GetFloatValue(DIFF_1_OFFSET_REG), DIFFERENTIAL_1_PIN);
-	sensors[2] = new PressureSensor(EEPROMRW::GetFloatValue(DIFF_2_SLOPE_REG),
-			EEPROMRW::GetFloatValue(DIFF_2_OFFSET_REG), DIFFERENTIAL_2_PIN);
-	//sensorC = new ThermocoupleSensorSPI(THERMOCOUPLE_CS_PIN);
+	sensors[0] = new PressureSensor(ABS_SLOPE_REG, ABS_OFFSET_REG, ABSOLUTE_PIN);
+	sensors[1] = new PressureSensor(DIFF_1_SLOPE_REG, DIFF_1_OFFSET_REG, DIFFERENTIAL_1_PIN);
+	sensors[2] = new PressureSensor(DIFF_2_SLOPE_REG, DIFF_2_OFFSET_REG, DIFFERENTIAL_2_PIN);
+	sensors[3] = new ThermocoupleSensorSPI(THERMOCOUPLE_CS_PIN);
 
 	timer = new elapsedMillis();
 
@@ -39,7 +36,6 @@ void Sensors::Update() {
 	for (int i = 0; i < NUMSENSORS; i++) {
 		sensors[i]->Update();
 	}
-	//sensorC->Update();
 
 	if (*timer >= 250) {
 		*timer -= 250;
@@ -53,8 +49,8 @@ void Sensors::Update() {
 		Serial.println(sensors[1]->AverageData(), SERIAL_FP_DIGITS);
 		Serial.print("D2S");
 		Serial.println(sensors[2]->AverageData(), SERIAL_FP_DIGITS);
-		//Serial.print("Temperature: ");
-		//Serial.println(sensorC->AverageData());
+		Serial.print("T1S");
+		Serial.println(sensors[3]->AverageData(), SERIAL_FP_DIGITS);
 	}
 }
 

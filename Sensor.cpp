@@ -7,14 +7,17 @@
 
 #include "Sensor.h"
 
-Sensor::Sensor(float slope, float offset, uint8_t pin) {
+Sensor::Sensor(int slopeReg, int offsetReg, uint8_t pin) {
 	index = 0;
 	data = new float[SAMPLES];
 	sampleTimer = new elapsedMillis();
 
 	this->pin = pin;
-	this->slope = slope;
-	this->offset = offset;
+	this->slopeReg = slopeReg;
+	this->offsetReg = offsetReg;
+
+	slope = EEPROMRW::GetFloatValue(slopeReg);
+	offset = EEPROMRW::GetFloatValue(offsetReg);
 	enabled = true;
 }
 
@@ -53,5 +56,15 @@ void Sensor::AddData() {
 
 void Sensor::Enable(bool en) {
 	enabled = en;
+}
+
+void Sensor::ReadConfig() {
+	slope = EEPROMRW::GetFloatValue(slopeReg);
+	offset = EEPROMRW::GetFloatValue(offsetReg);
+}
+
+void Sensor::WriteConfig() {
+	EEPROMRW::SetFloatValue(slopeReg, slope);
+	EEPROMRW::SetFloatValue(offsetReg, offset);
 }
 

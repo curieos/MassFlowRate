@@ -13,7 +13,7 @@
 #include "ThermocoupleSensorSPI.h"
 #include "Configuration.h"
 
-const uint8_t NUMSENSORS = 3;
+const uint8_t NUMSENSORS = 4;
 
 /**
  *

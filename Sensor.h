@@ -10,6 +10,7 @@
 
 #include "Arduino.h"
 #include "Configuration.h"
+#include "EEPROMRW.h"
 
 /**
  *
@@ -22,7 +23,7 @@ public:
 	 * @param offset
 	 * @param pin
 	 */
-	Sensor(float slope, float offset, uint8_t pin);
+	Sensor(int slopeReg, int offsetReg, uint8_t pin);
 
 	/**
 	 *
@@ -52,9 +53,45 @@ public:
 	 */
 	virtual void Enable(bool en);
 
+	/**
+	 *
+	 */
+	virtual void ReadConfig();
+
+	/**
+	 *
+	 */
+	virtual void WriteConfig();
+
+	/**
+	 *
+	 * @param slope
+	 */
+	inline virtual void SetSlope(float slope) { this->slope = slope; }
+
+	/**
+	 *
+	 * @return
+	 */
+	inline virtual float GetSlope() { return slope; }
+
+	/**
+	 *
+	 * @param slope
+	 */
+	inline virtual void SetOffset(float slope) { this->offset = offset; }
+
+	/**
+	 *
+	 * @return
+	 */
+	inline virtual float GetOffset() { return offset; }
+
 protected:
 	elapsedMillis *sampleTimer;
 
+	int slopeReg;
+	int offsetReg;
 	uint8_t pin;
 	uint8_t index;
 	float *data;
