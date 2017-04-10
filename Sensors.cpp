@@ -54,3 +54,20 @@ void Sensors::Update() {
 	}
 }
 
+void Sensors::ReadConfig() {
+	for (int i = 0; i < NUMSENSORS; i++)
+		sensors[i]->ReadConfig();
+}
+
+void Sensors::WriteConfig() {
+	for (int i = 0; i < NUMSENSORS; i++)
+		sensors[i]->WriteConfig();
+}
+
+void Sensors::PrintValues() {
+	for (int i = 0; i < NUMSENSORS; i++) {
+		Serial.printf("S%dL%.6f", i+1, GetSlope(i));
+		Serial.printf("S%dO%.6f", i+1, GetSlope(i));
+	}
+}
+

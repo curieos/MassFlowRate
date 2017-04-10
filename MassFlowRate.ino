@@ -4,9 +4,9 @@
  * 	- Automatic max position calculation
  * 	x Command to set mid position
  * 	x Command to write calibration values
- * - Implement sensor calibration
- *  - Command to set slope and offset
- *  - Command to write values
+ * x Implement sensor calibration
+ *  x Command to set slope and offset
+ *  x Command to write values
  * x Disable all sensors while actuators are moving
  */
 

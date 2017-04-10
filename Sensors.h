@@ -34,17 +34,71 @@ public:
 	 */
 	void Disable();
 
-
 	/**
 	 *
 	 * @return
 	 */
-	inline bool Enabled() { return enabled; }
+	inline bool Enabled() {
+		return enabled;
+	}
+
+	/**
+	 *
+	 */
+	void WriteConfig();
+
+	/**
+	 *
+	 */
+	void ReadConfig();
+
+	/**
+	 *
+	 * @param slope
+	 * @param sensor
+	 */
+	inline void SetSlope(float slope, uint8_t sensor) {
+		if (sensor >= NUMSENSORS) return;
+		sensors[sensor]->SetSlope(slope);
+	}
+
+	/**
+	 *
+	 * @param sensor
+	 * @return
+	 */
+	inline float GetSlope(uint8_t sensor) {
+		if (sensor >= NUMSENSORS) return 0;
+		return sensors[sensor]->GetSlope();
+	}
+
+	/**
+	 *
+	 * @param offset
+	 * @param sensor
+	 */
+	inline void SetOffset(float offset, uint8_t sensor) {
+		if (sensor >= NUMSENSORS) return;
+		sensors[sensor]->SetOffset(offset);
+	}
+
+	/**
+	 *
+	 * @param sensor
+	 * @return
+	 */
+	inline float GetOffset(uint8_t sensor) {
+		if (sensor >= NUMSENSORS) return 0;
+		return sensors[sensor]->GetOffset();
+	}
+
+	/**
+	 *
+	 */
+	void PrintValues();
 
 private:
 	Sensor *sensors[NUMSENSORS];
-	//Sensor *sensorA;
-	//Sensor *sensorB;
 	elapsedMillis *timer;
 
 	bool enabled;

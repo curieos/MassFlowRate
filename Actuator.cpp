@@ -39,7 +39,7 @@ void Actuator::Initialize(uint8_t chipSelect) {
 }
 
 void Actuator::WriteConfig() {
-	EEPROMRW::SetIntValue(maxRegister, maxPosition);
+	//EEPROMRW::SetIntValue(maxRegister, maxPosition);
 	EEPROMRW::SetIntValue(midRegister, midPosition);
 }
 

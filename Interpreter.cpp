@@ -15,7 +15,8 @@ Interpreter::Interpreter(Platform *p, Sensors *s) {
 
 void Interpreter::Update() {
 	if (!sensors->Enabled()) {
-		if (platform->GetState() == Ready) sensors->Enable();
+		if (platform->GetState() == Ready)
+			sensors->Enable();
 	}
 
 	serialBuffer->FillBuffer();
@@ -32,7 +33,39 @@ void Interpreter::Update() {
 }
 
 void Interpreter::SensorCommands() {
-
+	sensors->PrintValues();
+	if (serialBuffer->Seen('W')) {
+		sensors->WriteConfig();
+	} else if (serialBuffer->Seen('R')) {
+		sensors->ReadConfig();
+	} else if (serialBuffer->Seen('S')) {
+		switch (serialBuffer->GetIntValue()) {
+		case 1:
+			if (serialBuffer->Seen('L'))
+				sensors->SetSlope(serialBuffer->GetFloatValue(), 0);
+			else if (serialBuffer->Seen('O'))
+				sensors->SetOffset(serialBuffer->GetFloatValue(), 0);
+			break;
+		case 2:
+			if (serialBuffer->Seen('L'))
+				sensors->SetSlope(serialBuffer->GetFloatValue(), 0);
+			else if (serialBuffer->Seen('O'))
+				sensors->SetOffset(serialBuffer->GetFloatValue(), 0);
+			break;
+		case 3:
+			if (serialBuffer->Seen('L'))
+				sensors->SetSlope(serialBuffer->GetFloatValue(), 0);
+			else if (serialBuffer->Seen('O'))
+				sensors->SetOffset(serialBuffer->GetFloatValue(), 0);
+			break;
+		case 4:
+			if (serialBuffer->Seen('L'))
+				sensors->SetSlope(serialBuffer->GetFloatValue(), 0);
+			else if (serialBuffer->Seen('O'))
+				sensors->SetOffset(serialBuffer->GetFloatValue(), 0);
+			break;
+		}
+	}
 }
 
 void Interpreter::ActuatorCommands() {
