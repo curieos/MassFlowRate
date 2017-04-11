@@ -33,7 +33,6 @@ void Interpreter::Update() {
 }
 
 void Interpreter::SensorCommands() {
-	sensors->PrintValues();
 	if (serialBuffer->Seen('W')) {
 		sensors->WriteConfig();
 	} else if (serialBuffer->Seen('R')) {
@@ -66,6 +65,7 @@ void Interpreter::SensorCommands() {
 			break;
 		}
 	}
+	sensors->PrintValues();
 }
 
 void Interpreter::ActuatorCommands() {

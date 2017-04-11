@@ -66,8 +66,8 @@ void Sensors::WriteConfig() {
 
 void Sensors::PrintValues() {
 	for (int i = 0; i < NUMSENSORS; i++) {
-		Serial.printf("S%dL%.6f", i+1, GetSlope(i));
-		Serial.printf("S%dO%.6f", i+1, GetSlope(i));
+		Serial.printf("S%dL%.6f\n", i+1, GetSlope(i));
+		Serial.printf("S%dO%.6f\n", i+1, GetOffset(i));
 	}
 }
 

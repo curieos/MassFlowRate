@@ -39,7 +39,7 @@ void Actuator::Initialize(uint8_t chipSelect) {
 }
 
 void Actuator::WriteConfig() {
-	//EEPROMRW::SetIntValue(maxRegister, maxPosition);
+	EEPROMRW::SetIntValue(maxRegister, maxPosition);
 	EEPROMRW::SetIntValue(midRegister, midPosition);
 }
 
@@ -71,7 +71,7 @@ bool Actuator::Run() {
 			state = Ready;
 			MoveTo(-2.7 * INCH_TO_MM);
 		} else if (endstops->CheckMax()) {
-			SetPosition(0);
+			//SetPosition(0);
 			//TODO CAUSE AN ERROR THIS SHOULDNT HAPPEN
 		}
 		break;
@@ -83,8 +83,11 @@ bool Actuator::Run() {
 		if (endstops->CheckMin()) {
 
 		} else if (endstops->CheckMax()) {
-			maxPosition = motor->currentPosition();
-			SetPosition(maxPosition);
+			if (motor->currentPosition() < maxPosition) {
+				maxPosition = motor->currentPosition();
+				motor->moveTo(maxPosition-5);
+				Serial.printf("%d < %d\n", motor->currentPosition(), maxPosition);
+			}
 		}
 		break;
 	case MoveState::Calibrating:
@@ -92,9 +95,8 @@ bool Actuator::Run() {
 			//TODO CAUSE ERROR
 		} else if (endstops->CheckMax()) {
 			maxPosition = motor->currentPosition();
-			SetPosition(maxPosition);
+			motor->moveTo(maxPosition-5);
 			state = Ready;
-			MoveTo(2.7 * INCH_TO_MM);
 		}
 		break;
 	case MoveState::Ready:

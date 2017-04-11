@@ -25,12 +25,8 @@
 #define DRIVE_PITCH 8 //mm/rev
 #define STEPS_PER_MM (MICROSTEPPING*MOTOR_STEPS_PER_REV/DRIVE_PITCH)
 #define SPEED 20 //mm per sec
-#define HOME_SPEED 10 //mm per sec
+#define HOME_SPEED 15 //mm per sec
 #define ACCEL 100 //mm per sec^2
-
-//Machine limits
-#define AXIS_MAX_LENGTH 50
-#define HOMING_FEEDRATE 2
 
 //Endstop settings
 #define X_MAX_PIN 22
